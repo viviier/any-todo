@@ -1,27 +1,27 @@
 import axios from 'axios';
 import uuid from 'uuid';
 
-export function addTodo(todo) {
+export function addTodo(username, text) {
 	return (dispatch) => {
 		axios.post('/api/add', {
 			username,
 			todo: {
-				...todo,
+				text,
 				id: uuid.v4(),
 				completed: false
 			}
 		})
 		.then(res => {
-			diapatch({
+			dispatch({
 				type: 'ADD_TODO',
-				payload: res.data
+				payload: res.data.data
 			})
 		})
 	}
 }
 
 export function deleteTodo(username, todoId) {
-	return (diapatch) => {
+	return (dispatch) => {
 		axios.post('/api/delete', {
 			username,
 			todoId
@@ -29,7 +29,7 @@ export function deleteTodo(username, todoId) {
 		.then(res => {
 			dispatch({
 				type: 'DELETE_TODO',
-				payload: res.data
+				payload: res.data.data
 			})
 		})
 	}

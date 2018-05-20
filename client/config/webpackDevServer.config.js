@@ -81,7 +81,7 @@ module.exports = function(proxy, allowedHost) {
     },
     public: allowedHost,
     proxy: [{
-      context: ["/login", "/reg", "/api"],
+      context: ["/auth", "/api"],
       target: "http://localhost:3000",
     }],
     before(app) {

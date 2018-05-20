@@ -1,5 +1,10 @@
-function todo(state = [], action) {
+export default function todo(state = [], action) {
 	switch(action.type) {
+		case 'CREATE_TODO':
+			return [
+				...state,
+				...action.payload
+			];
 		case 'ADD_TODO': 
 			return [
 				...state,
@@ -20,7 +25,7 @@ function todo(state = [], action) {
 					}
 				}
 				return item;
-			})
+			});
 		default: return state;
 	}
 }

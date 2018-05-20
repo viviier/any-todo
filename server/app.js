@@ -16,7 +16,7 @@ db.connect();
 // app.use(express.static())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-useSecret.init(app, ['/reg', '/login']);
+useSecret.init(app, [/^\/auth/]);
 setRouter(app);
 
 app.listen(port, () => {

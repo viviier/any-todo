@@ -22,9 +22,11 @@ router.post('/login', (req, res) => {
 				res.status(200).json({
 					ok: 1,
 					message: '登录成功',
-					data: {
-						token,
-						list: data.list
+					token,
+					list: data.list,
+					userInfo: {
+						username,
+						name
 					}
 				});
 			});

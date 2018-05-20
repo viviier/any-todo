@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
 
 import todoReducer from './todoReducer';
+import userReducer from './userReducer';
 
-export default let reducer = combineReducers({
-	todoReducer
+const reducer = combineReducers({
+	todoReducer,
+	userReducer
 });
+
+export default reducer;
