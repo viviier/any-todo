@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Icon, Input, List } from 'antd';
+import { Row, Col, Icon, Input, List, Avatar } from 'antd';
 import { addTodo } from 'src/actions/todoActions';
 import './index.less';
 
 @connect(store => {
 	return {
 		username: store.userReducer.username,
+		name: store.userReducer.name,
 		list: store.todoReducer
 	}
 })
@@ -32,6 +33,10 @@ class Home extends Component {
 	render() {
 		return (
 			<Row type="flex" justify="center" align="middle" className="wrap-home">
+				<div className="home-userinfo">
+					<p className="info-name">{this.props.name}</p>
+					<Avatar style={{ color: '#fff', backgroundColor: '#f56a00' }}>{this.props.name[0].toUpperCase()}</Avatar>
+				</div>
 				<Col span={12} lg={{span: 10}}>
 					<Input
 						placeholder="Enter your todo..."
@@ -43,6 +48,8 @@ class Home extends Component {
 					<List
 						dataSource={this.props.list}
 						renderItem={item => (<List.Item>{item.text}</List.Item>)}
+						locale={{emptyText: '开始你的第一个todo吧~'}}
+						pagination={{pageSize: 6}}
 					/>
 				</Col>
 			</Row>
