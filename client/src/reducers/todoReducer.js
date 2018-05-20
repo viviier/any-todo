@@ -26,6 +26,8 @@ export default function todo(state = [], action) {
 				}
 				return item;
 			});
+		case 'LOGINOUT_USER':
+			return {};
 		default: return state;
 	}
 }

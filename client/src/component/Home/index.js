@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Icon, Input, List, Avatar } from 'antd';
+import { Row, Col, Icon, Input, List, Avatar, Popover } from 'antd';
 import { addTodo } from 'src/actions/todoActions';
+import { userLoginOut } from 'src/actions/userActions';
 import './index.less';
 
 @connect(store => {
@@ -30,12 +31,23 @@ class Home extends Component {
 		})
 	}
 
+	userLoginOutClick(e) {
+		e.preventDefault();
+		this.props.dispatch(userLoginOut(this.props.history));
+	}
+
 	render() {
+		let popverContent = () => (
+			<a onClick={e => this.userLoginOutClick(e)}>login out</a>
+		);
+
 		return (
 			<Row type="flex" justify="center" align="middle" className="wrap-home">
 				<div className="home-userinfo">
 					<p className="info-name">{this.props.name}</p>
-					<Avatar style={{ color: '#fff', backgroundColor: '#f56a00' }}>{this.props.name[0].toUpperCase()}</Avatar>
+					<Popover placement="bottom" content={popverContent()}>
+						<Avatar style={{ color: '#fff', backgroundColor: '#f56a00' }}>{this.props.name[0].toUpperCase()}</Avatar>
+					</Popover>
 				</div>
 				<Col span={12} lg={{span: 10}}>
 					<Input

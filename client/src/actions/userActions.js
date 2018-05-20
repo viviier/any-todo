@@ -20,12 +20,13 @@ export function userLogin(loginInfo, history) {
 	}
 }
 
-export function userLoginOut() {
+export function userLoginOut(history) {
 	return (dispatch) => {
-		localStorage.removeItem('token');
-		
 		dispatch({
 			type: 'LOGINOUT_USER'
 		});
+		
+		localStorage.clear();
+		history && history.push('/login');
 	}
 }
