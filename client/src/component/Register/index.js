@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Col, Form, Icon, Input, Button } from 'antd';
+import { Link } from 'react-router-dom';
+import { Row, Col, Form, Icon, Input, Button, notification } from 'antd';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import './index.less';
@@ -23,22 +24,27 @@ class Register extends Component {
 		
 		this.props.form.validateFields((err, values) => {
 			if (err) {
-				console.log(err)
+				console.log(err);
 			};
 
 			axios.post('/auth/reg', values)
 				.then(res => {
 					this.props.history.push('/login');
+
+					notification['success']({
+						message: '注册成功',
+						duration: 3
+					});
 				})
 		});
 	}
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
-		console.log(this.props)
+
 		return (
 			<Row type="flex" justify="center" align="middle" className="wrap-register">
-				<Col span={12} offset={0} md={{offset: 3}} lg={{offset: 6}}>
+				<Col span={20} offset={0} md={{offset: 3}} lg={{offset: 6, span: 12}}>
 					<h1>注册</h1>
 
 					 <Form className="register-form">
@@ -65,6 +71,8 @@ class Register extends Component {
 								)}
 					        </FormItem>
 				        </div>
+
+						<Link to="/login" className="register-form-login">> login now!</Link>						
 						<Button type="primary" htmlType="submit" className="register-form-button" onClick={(e) => this.handleSubmit(e)}>
 							Register
 						</Button>

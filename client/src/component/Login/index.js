@@ -34,7 +34,7 @@ class Login extends Component {
 
 		return (
 			<Row type="flex" justify="center" align="middle" className="wrap-login">
-				<Col span={12} offset={0} md={{offset: 3}} lg={{offset: 6}}>
+				<Col span={20} offset={0} md={{offset: 3}} lg={{offset: 6, span: 12}}>
 					<h1>登录</h1>
 
 					 <Form className="login-form">
@@ -56,8 +56,6 @@ class Login extends Component {
 				        </div>
 
 						<Link to="/register" className="login-form-register">> register now!</Link>
-
-						 
 						<Button type="primary" htmlType="submit" className="login-form-button" onClick={(e) => this.handleSubmit(e)}>
 							Log in
 						</Button>

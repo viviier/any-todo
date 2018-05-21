@@ -6,14 +6,21 @@ const {User, Todo} = require('../../models');
 
 router.post('/login', (req, res) => {
 	User.findUser(req.body.username, (err, data) => {
+		if (err || !data) {
+			return res.status(400).json({
+				ok: 0,
+				message: '登录失败'
+			});
+		}
+		
 		let {username, name, password} = data;
 
 		if ( req.body.password === password) {
 			let token = jwt.sign({username, name}, Secret);
 
 			Todo.getList(req.body.username, (err, data) => {
-				if (err) {
-					res.status(400).json({
+				if (err || !data) {
+					return res.status(400).json({
 						ok: 0,
 						message: '获取list失败'
 					});
@@ -36,16 +43,16 @@ router.post('/login', (req, res) => {
 
 router.post('/reg', (req, res) => {
 	User.createUser(req.body).then((data, err) => {
-		if (err) {
-			res.status(400).json({
+		if (err || !data) {
+			return res.status(400).json({
 				ok: 0,
 				message: 'create user filed'
 			});
 		}
 
 		return Todo.createList({username: req.body.username}).then((data, err) => {
-			if (err) {
-				res.status(400).json({
+			if (err || !data) {
+				return res.status(400).json({
 					ok: 0,
 					message: 'create list filed'
 				});

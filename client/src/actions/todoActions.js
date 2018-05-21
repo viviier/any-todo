@@ -1,5 +1,6 @@
 import axios from 'axios';
 import uuid from 'uuid';
+import { notification } from 'antd';
 
 export function addTodo(username, text) {
 	return (dispatch) => {
@@ -17,6 +18,30 @@ export function addTodo(username, text) {
 				payload: res.data.data
 			})
 		})
+		.catch(err => {
+			notification['error']({
+				message: '添加失败',
+				duration: 3				
+			});
+		});
+	}
+}
+
+export function toggleTodo(username, todoId, todo) {
+	return (dispatch) => {
+		axios.post('/api/toggle', {
+			username,
+			todoId,
+			todo
+		})
+		.then(res => {
+			dispatch({
+				type: 'TOGGLE_TODO',
+				payload: {
+					id: res.data.data
+				}
+			});
+		})
 	}
 }
 
@@ -32,5 +57,10 @@ export function deleteTodo(username, todoId) {
 				payload: res.data.data
 			})
 		})
+		.catch(err => {
+			notification['error']({
+				message: '删除失败'
+			});
+		});
 	}
 }

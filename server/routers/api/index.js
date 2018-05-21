@@ -12,8 +12,8 @@ router.post('/add', (req, res) => {
 	let {username, todo} = {...req.body};
 
 	Todo.addTodo(username, todo, (err, data) => {
-		if (err) {
-			res.status(400).json({
+		if (err || !data) {
+			return res.status(400).json({
 				ok: 0,
 				message: '添加失败'
 			});
@@ -46,12 +46,32 @@ router.post('/add', (req, res) => {
 	});
 });
 
+router.post('/toggle', (req, res) => {
+	let {username, todoId, todo} = {...req.body};
+	Todo.updateTodo(username, todoId, todo, (err, data) => {
+		Todo.getList(username, (err, data) => {
+			if (err || !data) {
+				return res.status(400).json({
+					ok: 0,
+					message: '获取list失败'
+				});
+			}
+
+			res.status(200).json({
+				ok: 1,
+				message: '更改成功',
+				data: todoId
+			});
+		});
+	})
+});
+
 router.post('/delete', (req, res) => {
 	let {username, todoId} = {...req.body};
 	Todo.deleteTodo(username, todoId, (err, data) => {
 		Todo.getList(username, (err, data) => {
-			if (err) {
-				res.status(400).json({
+			if (err || !data) {
+				return res.status(400).json({
 					ok: 0,
 					message: '获取list失败'
 				});
@@ -60,9 +80,7 @@ router.post('/delete', (req, res) => {
 			res.status(200).json({
 				ok: 1,
 				message: '删除成功',
-				data: {
-					todoId
-				}
+				data: todoId
 			});
 		});
 	});

@@ -1,17 +1,27 @@
 {
-  "name": "todo-app",
+  "name": "any-todo",
   "version": "1.0.0",
-  "description": "",
+  "description": "`npm install` 进行安装",
   "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "history": "^4.7.2",
+    "nodemon": "^1.17.4",
+    "normalize.css": "^8.0.0",
+    "react-router-redux": "^4.0.8"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon ./server/app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viviier/any-todo.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "axios": "^0.18.0",
-    "nodemon": "^1.17.4",
-    "normalize.css": "^8.0.0",
-  }
+  "bugs": {
+    "url": "https://github.com/viviier/any-todo/issues"
+  },
+  "homepage": "https://github.com/viviier/any-todo#readme"
 }
