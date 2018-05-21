@@ -49,7 +49,7 @@ class Home extends Component {
 						<Avatar style={{ color: '#fff', backgroundColor: '#f56a00' }}>{this.props.name[0].toUpperCase()}</Avatar>
 					</Popover>
 				</div>
-				<Col span={12} lg={{span: 10}}>
+				<Col span={20} lg={{span: 10}}>
 					<Input
 						placeholder="Enter your todo..."
 						suffix={<Icon type="plus" style={{ color: 'rgba(0,0,0,.25)', cursor: 'pointer' }} onClick={() => this.handleClick()}/>}
