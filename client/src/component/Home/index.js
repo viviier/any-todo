@@ -49,7 +49,18 @@ class Home extends Component {
 		let popverContent = () => (
 			<a onClick={e => this.userLoginOutClick(e)}>login out</a>
 		);
-		
+
+		let paginationConfig = {
+			pageSize: 6
+		};
+
+		if (document.body.clientWidth <= 576) {
+			paginationConfig = {
+				...paginationConfig,
+				size: 'small'
+			}
+		}
+
 		return (
 			<Row type="flex" justify="center" align="middle" className="wrap-home">
 				<div className="home-userinfo">
@@ -71,7 +82,7 @@ class Home extends Component {
 						dataSource={this.props.list}
 						renderItem={item => (<List.Item className={"list-item" + (item.completed ? ' completed' : '')} onClick={() => this.itemToggleClick(item.id, item)}>{item.text}</List.Item>)}
 						locale={{emptyText: '开始你的第一个todo吧~'}}
-						pagination={{pageSize: 6}}
+						pagination={paginationConfig}
 					/>
 				</Col>
 			</Row>

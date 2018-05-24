@@ -16,3 +16,13 @@ export const saveState = (state) => {
 		console.log('保存失败')
 	}
 }
+
+// lang
+export const splitArr = (arr, len) => {
+	let res = [];
+	for (let i = 0; i < arr.length; i+=len) {
+		res.push(arr.slice(i, i+len));
+	}
+
+	return res;
+}

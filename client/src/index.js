@@ -14,6 +14,7 @@ axios.interceptors.request.use(function (config) {
     if (localStorage.getItem('token')) {
         config.headers.Authorization = `Tk ${localStorage.getItem('token')}`;
     }
+    
     return config;
 }, function (err) {
     return Promise.reject(err);
