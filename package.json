@@ -10,7 +10,10 @@
     "normalize.css": "^8.0.0",
     "react-router-redux": "^4.0.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.8.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

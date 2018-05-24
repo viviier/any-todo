@@ -2,7 +2,6 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const expressJwt = require('express-jwt');
 const app = express();
 const setRouter = require('./routers');
 const db = require('./config/mongodb.config.js');

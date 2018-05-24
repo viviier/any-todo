@@ -38,7 +38,7 @@ router.post('/login', (req, res) => {
 				});
 			});
 		}
-	})
+	});
 });
 
 router.post('/reg', (req, res) => {

@@ -8,7 +8,6 @@ import store from './store';
 import RouterComponent from './routers';
 import registerServiceWorker from './registerServiceWorker';
 
-
 // axios global header
 axios.interceptors.request.use(function (config) {
     if (localStorage.getItem('token')) {

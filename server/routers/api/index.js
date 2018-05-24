@@ -1,11 +1,5 @@
 const router = require('express').Router();
-const jwt = require('jsonwebtoken');
-const { User, Todo } = require('../../models');
-const Secret = require('../../config/secret.config.js').secret;
-
-router.get('/home', (req, res) => {
-
-});
+const { Todo } = require('../../models');
 
 // todo
 router.post('/add', (req, res) => {
@@ -48,7 +42,7 @@ router.post('/add', (req, res) => {
 
 router.post('/toggle', (req, res) => {
 	let {username, todoId, todo} = {...req.body};
-	Todo.updateTodo(username, todoId, todo, (err, data) => {
+	Todo.updateTodo(username, todoId, todo, () => {
 		Todo.getList(username, (err, data) => {
 			if (err || !data) {
 				return res.status(400).json({
@@ -63,12 +57,12 @@ router.post('/toggle', (req, res) => {
 				data: todoId
 			});
 		});
-	})
+	});
 });
 
 router.post('/delete', (req, res) => {
 	let {username, todoIds} = {...req.body};
-	Todo.deleteTodo(username, todoIds, (err, data) => {
+	Todo.deleteTodo(username, todoIds, () => {
 		Todo.getList(username, (err, data) => {
 			if (err || !data) {
 				return res.status(400).json({
