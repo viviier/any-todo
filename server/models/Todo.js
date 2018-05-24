@@ -28,8 +28,8 @@ todoSchema.statics = {
 	addTodo: function (username, todo, cb) {
 		return this.update({username}, { $push: {list: todo}}, cb);
 	},
-	deleteTodo: function (username, todoId, cb) {
-		return this.update({username}, { $pull: {list: {id: todoId}}}, cb);
+	deleteTodo: function (username, todoIds, cb) {
+		return this.update({username}, { $pull: {list: {id: {$in: todoIds}}}}, cb);
 	},
 	updateTodo: function (username, todoId, todo, cb) {
 		return this.update({username, "list.id": todoId}, { $set: { "list.$": todo }}, cb);

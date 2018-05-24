@@ -67,8 +67,8 @@ router.post('/toggle', (req, res) => {
 });
 
 router.post('/delete', (req, res) => {
-	let {username, todoId} = {...req.body};
-	Todo.deleteTodo(username, todoId, (err, data) => {
+	let {username, todoIds} = {...req.body};
+	Todo.deleteTodo(username, todoIds, (err, data) => {
 		Todo.getList(username, (err, data) => {
 			if (err || !data) {
 				return res.status(400).json({
@@ -80,7 +80,7 @@ router.post('/delete', (req, res) => {
 			res.status(200).json({
 				ok: 1,
 				message: '删除成功',
-				data: todoId
+				data: todoIds
 			});
 		});
 	});

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Icon, Input, List, Avatar, Popover, Pagination } from 'antd';
-import { addTodo, toggleTodo } from 'src/actions/todoActions';
+import { Row, Col, Icon, Input, List, Avatar, Popover, Pagination, Button, Checkbox } from 'antd';
+import { addTodo, toggleTodo, deleteTodos } from 'src/actions/todoActions';
 import { userLoginOut } from 'src/actions/userActions';
 import { splitArr } from 'common/utils';
 import FilterLink from 'common/component/FilterLink';
@@ -18,7 +18,9 @@ import './index.less';
 class Home extends Component {
 	state = {
 		value: '',
-		current: 1
+		current: 1,
+		isConfig: false,
+		deleteTodos: []
 	}
 
 	handleChange(e) {
@@ -58,7 +60,47 @@ class Home extends Component {
 	handleFilterLinkClick() {
 		this.setState({
 			current: 1
-		})
+		});
+	}
+
+	handleConfigClick() {
+		this.setState({
+			isConfig: true
+		});
+	}
+
+	itemDeleteClick(e, id) {
+		if (e.target.tagName === 'INPUT') {
+			if (e.target.checked) {
+				this.setState({
+					deleteTodos: [
+						...this.state.deleteTodos,
+						id
+					]
+				});
+			} else {
+				this.setState({
+					deleteTodos: this.state.deleteTodos.filter(item => {
+						return item !== id
+					})
+				});
+			}
+		}
+	}
+
+	handleDeleteClick() {
+		if (!this.state.deleteTodos.length) {
+			this.setState({
+				isConfig: false
+			});
+			return ;
+		}
+
+		this.props.dispatch(deleteTodos(this.props.username, this.state.deleteTodos));
+		this.setState({
+			isConfig: false,
+			deleteTodos: []
+		});
 	}
 
 	// filter todo
@@ -107,6 +149,24 @@ class Home extends Component {
 					</Popover>
 				</div>
 				<Col span={20} lg={{span: 10}}>
+					<div className="home-config">
+						{
+							this.state.isConfig
+							? (<p 
+									style={{ cursor: 'pointer' }}
+									onClick={() => this.handleDeleteClick()}>
+									<Button shape="circle" icon="check" size="small" style={{color: '#1890ff', marginRight: '6px'}} /> 完成
+								</p>
+							)
+							: (
+								<a 
+									onClick={() => this.handleConfigClick()}
+								>
+									Config
+								</a>
+							)
+						}
+					</div>
 					<Input
 						size="large"
 						placeholder="Enter your todo..."
@@ -117,7 +177,20 @@ class Home extends Component {
 					/>
 					<List
 						dataSource={dataSource[this.state.current]}
-						renderItem={item => (<List.Item className={"list-item" + (item.completed ? ' completed' : '')} onClick={() => this.itemToggleClick(item.id, item)}>{item.text}</List.Item>)}
+						renderItem={item => (
+							<List.Item 
+								className={"list-item" + (item.completed ? ' completed' : '')} 
+								onClick={e => this.state.isConfig ? this.itemDeleteClick(e, item.id) : this.itemToggleClick(item.id, item)}
+							>
+								{
+									this.state.isConfig
+									? (
+										<Checkbox>{item.text}</Checkbox>
+									)
+									: item.text
+								}
+							</List.Item>
+						)}
 						locale={{emptyText: '开始你的第一个todo吧~'}}
 					/>
 					<div className="home-wrap-footer">

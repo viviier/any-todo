@@ -19,8 +19,14 @@ export default function todo(state = {}, action) {
 		case 'DELETE_TODO':
 			return {
 				...state,
-				toods: state.todos.filter(item => {
-					return item.id !== action.payload.id
+				todos: state.todos.filter(item => {
+					for (let i = 0; i < action.payload.length; i++) {
+						if (item.id == action.payload[i]) {
+							return false;
+						}
+					}
+
+					return true;
 				})
 			}
 		case 'TOGGLE_TODO':

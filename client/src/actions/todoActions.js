@@ -45,11 +45,11 @@ export function toggleTodo(username, todoId, todo) {
 	}
 }
 
-export function deleteTodo(username, todoId) {
+export function deleteTodos(username, todoIds) {
 	return (dispatch) => {
 		axios.post('/api/delete', {
 			username,
-			todoId
+			todoIds
 		})
 		.then(res => {
 			dispatch({
