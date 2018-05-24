@@ -21,7 +21,7 @@ export default function todo(state = {}, action) {
 				...state,
 				todos: state.todos.filter(item => {
 					for (let i = 0; i < action.payload.length; i++) {
-						if (item.id == action.payload[i]) {
+						if (item.id ==== action.payload[i]) {
 							return false;
 						}
 					}
