@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Icon, Input, List, Avatar, Popover } from 'antd';
+import { Row, Col, Icon, Input, List, Avatar, Popover, Pagination } from 'antd';
 import { addTodo, toggleTodo } from 'src/actions/todoActions';
 import { userLoginOut } from 'src/actions/userActions';
+import { splitArr } from 'common/utils';
 import './index.less';
 
 @connect(store => {
@@ -14,7 +15,8 @@ import './index.less';
 })
 class Home extends Component {
 	state = {
-		value: ''
+		value: '',
+		current: 1
 	}
 
 	handleChange(e) {
@@ -40,6 +42,12 @@ class Home extends Component {
 		this.props.dispatch(toggleTodo(this.props.username, id, todo))
 	}
 
+	paginationClick(page) {
+		this.setState({
+			current: page
+		});
+	}
+
 	userLoginOutClick(e) {
 		e.preventDefault();
 		this.props.dispatch(userLoginOut(this.props.history));
@@ -50,8 +58,14 @@ class Home extends Component {
 			<a onClick={e => this.userLoginOutClick(e)}>login out</a>
 		);
 
+		let dataSource = splitArr(this.props.list, 6);
+		dataSource.unshift([]);
+
 		let paginationConfig = {
-			pageSize: 6
+			pageSize: 6,
+			current: this.state.current,
+			total: this.props.list.length,
+			onChange: this.paginationClick.bind(this)
 		};
 
 		if (document.body.clientWidth <= 576) {
@@ -79,11 +93,15 @@ class Home extends Component {
 						onPressEnter={() => this.handleClick()}
 					/>
 					<List
-						dataSource={this.props.list}
+						dataSource={dataSource[this.state.current]}
 						renderItem={item => (<List.Item className={"list-item" + (item.completed ? ' completed' : '')} onClick={() => this.itemToggleClick(item.id, item)}>{item.text}</List.Item>)}
 						locale={{emptyText: '开始你的第一个todo吧~'}}
-						pagination={paginationConfig}
 					/>
+					<div className="home-wrap-footer">
+						<Pagination 
+							{...paginationConfig}
+						/>
+					</div>
 				</Col>
 			</Row>
 		);

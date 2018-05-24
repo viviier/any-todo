@@ -21,4 +21,23 @@
 			color: #ccc;
 		}
 	}
+
+	.home-wrap-footer {
+		margin-top: 24px;
+
+		&::before,
+		&::after {
+			content: '';
+			display: table;
+		}
+
+		&::after {
+			clear: both;
+		}
+
+		ul {
+			display: inline-block;
+			float: right;
+		}
+	}
 }
