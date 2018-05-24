@@ -116,7 +116,7 @@ class Home extends Component {
 				return todos
 		}
 	}
-
+	
 	render() {
 		let popverContent = () => (
 			<a onClick={e => this.userLoginOutClick(e)}>login out</a>
@@ -191,7 +191,11 @@ class Home extends Component {
 								}
 							</List.Item>
 						)}
-						locale={{emptyText: '开始你的第一个todo吧~'}}
+						locale={{
+							emptyText: (this.props.filter === 'SHOW_COMPLETED' && this.props.list.length)
+							? '加油完成你的第一个todo任务吧~' 
+							: '开始你的第一个todo吧~'
+						}}
 					/>
 					<div className="home-wrap-footer">
 						<p  className="footer-filterlink"
