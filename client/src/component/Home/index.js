@@ -4,13 +4,15 @@ import { Row, Col, Icon, Input, List, Avatar, Popover, Pagination } from 'antd';
 import { addTodo, toggleTodo } from 'src/actions/todoActions';
 import { userLoginOut } from 'src/actions/userActions';
 import { splitArr } from 'common/utils';
+import FilterLink from 'common/component/FilterLink';
 import './index.less';
 
 @connect(store => {
 	return {
 		username: store.userReducer.username,
 		name: store.userReducer.name,
-		list: store.todoReducer
+		list: store.todoReducer.todos,
+		filter: store.todoReducer.filter
 	}
 })
 class Home extends Component {
@@ -53,18 +55,39 @@ class Home extends Component {
 		this.props.dispatch(userLoginOut(this.props.history));
 	}
 
+	handleFilterLinkClick() {
+		this.setState({
+			current: 1
+		})
+	}
+
+	// filter todo
+	filterTodo(todos, filter) {
+		switch (filter) {
+			case 'SHOW_ALL':
+				return todos
+			case 'SHOW_ACTIVE':
+				return todos.filter( t => !t.completed )
+			case 'SHOW_COMPLETED':
+				return todos.filter ( t => t.completed )
+			default:
+				return todos
+		}
+	}
+
 	render() {
 		let popverContent = () => (
 			<a onClick={e => this.userLoginOutClick(e)}>login out</a>
 		);
 
-		let dataSource = splitArr(this.props.list, 6);
+		let list = this.filterTodo(this.props.list, this.props.filter);
+		let dataSource = splitArr(list, 6);
 		dataSource.unshift([]);
 
 		let paginationConfig = {
 			pageSize: 6,
 			current: this.state.current,
-			total: this.props.list.length,
+			total: list.length,
 			onChange: this.paginationClick.bind(this)
 		};
 
@@ -98,6 +121,13 @@ class Home extends Component {
 						locale={{emptyText: '开始你的第一个todo吧~'}}
 					/>
 					<div className="home-wrap-footer">
+						<p  className="footer-filterlink"
+							onClick={() => this.handleFilterLinkClick()}
+						>
+							<FilterLink filter="SHOW_ACTIVE">正在</FilterLink>
+							<FilterLink filter="SHOW_COMPLETED">已完成</FilterLink>
+							<FilterLink filter="SHOW_ALL">show all</FilterLink>
+						</p>
 						<Pagination 
 							{...paginationConfig}
 						/>

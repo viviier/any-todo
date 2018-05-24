@@ -64,3 +64,12 @@ export function deleteTodo(username, todoId) {
 		});
 	}
 }
+
+export function setFilter(filter) {
+	return (dispatch) => {
+		dispatch({
+			type: 'SET_FILTER',
+			payload: filter
+		})
+	}
+}
