@@ -44,7 +44,7 @@ class Register extends Component {
 
 		return (
 			<Row type="flex" justify="center" align="middle" className="wrap-register">
-				<Col span={20} offset={0} xs={{offset: 4}} md={{offset: 3}} lg={{offset: 6, span: 12}}>
+				<Col span={20} offset={0} xs={{offset: 2}} md={{offset: 3}} lg={{offset: 6, span: 12}}>
 					<h1>注册</h1>
 
 					 <Form className="register-form">

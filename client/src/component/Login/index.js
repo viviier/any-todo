@@ -34,7 +34,7 @@ class Login extends Component {
 
 		return (
 			<Row type="flex" justify="center" align="middle" className="wrap-login">
-				<Col span={20} offset={0} xs={{offset: 4}} md={{offset: 3}} lg={{offset: 6, span: 12}}>
+				<Col span={20} offset={0} xs={{offset: 2}} md={{offset: 3}} lg={{offset: 6, span: 12}}>
 					<h1>登录</h1>
 
 					 <Form className="login-form">
