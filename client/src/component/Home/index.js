@@ -117,6 +117,15 @@ class Home extends Component {
 		}
 	}
 	
+	// // fix分页溢出问题
+	// paginationOverflow(p, s) {
+	// 	/**
+	// 	 * @解决方案
+	// 	 * 每一次新增item或者当前的pageSize变更，就去判断pagination的宽度是否到了父元素宽度的一半，如果到了就变为
+	// 	 */
+	// 	console.log(p, s)
+	// }
+
 	render() {
 		let popverContent = () => (
 			<a onClick={e => this.userLoginOutClick(e)}>login out</a>
@@ -130,13 +139,14 @@ class Home extends Component {
 			pageSize: 6,
 			current: this.state.current,
 			total: list.length,
+			size: 'small',
 			onChange: this.paginationClick.bind(this)
 		};
 
 		if (document.body.clientWidth <= 576) {
 			paginationConfig = {
 				...paginationConfig,
-				size: 'small'
+				simple: true
 			}
 		}
 
@@ -198,6 +208,10 @@ class Home extends Component {
 						}}
 					/>
 					<div className="home-wrap-footer">
+						<Pagination
+							{...paginationConfig}
+							className="fotter-pagination"
+						/>
 						<p  className="footer-filterlink"
 							onClick={() => this.handleFilterLinkClick()}
 						>
@@ -205,9 +219,6 @@ class Home extends Component {
 							<FilterLink filter="SHOW_COMPLETED">已完成</FilterLink>
 							<FilterLink filter="SHOW_ALL">show all</FilterLink>
 						</p>
-						<Pagination 
-							{...paginationConfig}
-						/>
 					</div>
 				</Col>
 			</Row>

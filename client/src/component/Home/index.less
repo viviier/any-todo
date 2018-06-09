@@ -1,5 +1,5 @@
 .wrap-home {
-	padding-top: 100px;
+	padding-top: 10rem;
 
 	.home-userinfo {
 		position: absolute;
@@ -9,19 +9,19 @@
 
 		.info-name {
 			display: inline-block;
-		    margin-right: 20px;
+		    margin-right: 2rem;
 		}
 	}
 
 	.home-config {
 		position: absolute;
 		top: -80px;
-		height: 39px;
-		line-height: 39px;
+		height: 3.9rem;
+		line-height: 3.9rem;
 	}
 
 	.list-item {
-		padding-left: 11px;
+		padding-left: 1.1rem;
 
 		&:last-child {
 			border-bottom: 1px solid #e8e8e8;
@@ -32,7 +32,7 @@
 
 			span:first-child {
 				float: right;
-				margin-top: 3px;
+				margin-top: .3rem;
 			}
 		}
 		
@@ -43,7 +43,7 @@
 	}
 
 	.home-wrap-footer {
-		margin-top: 24px;
+		margin-top: 2.4rem;
 
 		&::before,
 		&::after {
@@ -58,20 +58,29 @@
 		.footer-filterlink {
 			display: inline-block;
 			float: left;
-			padding-top: 2px;
+			padding-top: .2rem;
 
 			a {
-				margin-right: 10px;
+				margin-right: 1rem;
 
 				&:last-child {
 					margin-right: 0;
 				}
 			}
+
+			@media (max-width: 380px){ 
+				float: right;
+				padding-top: 1.4rem;
+			}  
 		}
 
-		ul {
+		.fotter-pagination {
 			display: inline-block;
 			float: right;
+
+			li {
+				margin-right: .7rem;
+			}
 		}
 	}
 }
