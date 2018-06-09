@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Icon, Input, List, Avatar, Popover, Pagination, Button, Checkbox } from 'antd';
+import { Row, Col, Icon, Input, List, Avatar, Popover, Pagination, Button, Checkbox, message } from 'antd';
 import { addTodo, toggleTodo, deleteTodos } from 'src/actions/todoActions';
 import { userLoginOut } from 'src/actions/userActions';
 import { splitArr } from 'common/utils';
@@ -23,13 +23,25 @@ class Home extends Component {
 		deleteTodos: []
 	}
 
+	componentDidMount() {
+		message.config({
+			maxCount: 1
+		});
+	}
+
 	handleChange(e) {
 		this.setState({
 			value: e.target.value
 		})
 	}
 
-	handleClick() {
+	handleClick(e) {
+		let value = e.target.value;
+		if (!value.trim() || !value.replace(' ', '').length) {
+			message.warning('输入不能为空！');
+			return false;
+		}
+		
 		this.props.dispatch(addTodo(this.props.username, this.state.value));
 
 		this.setState({
@@ -180,10 +192,10 @@ class Home extends Component {
 					<Input
 						size="large"
 						placeholder="Enter your todo..."
-						suffix={<Icon type="plus" style={{ color: 'rgba(0,0,0,.25)', cursor: 'pointer' }} onClick={() => this.handleClick()}/>}
+						suffix={<Icon type="plus" style={{ color: 'rgba(0,0,0,.25)', cursor: 'pointer' }} onClick={e => this.handleClick(e)}/>}
 						value={this.state.value}
 						onChange={e => this.handleChange(e)}
-						onPressEnter={() => this.handleClick()}
+						onPressEnter={e => this.handleClick(e)}
 					/>
 					<List
 						dataSource={dataSource[this.state.current]}

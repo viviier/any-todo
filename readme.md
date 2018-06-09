@@ -1,6 +1,6 @@
 ## any-todo
 
-一个在线的todo应用。[any-todo](www.snowrzz.com)
+一个在线的todo应用。[> any-todo](www.snowrzz.com)
 
 `npm install` 进行安装
 
