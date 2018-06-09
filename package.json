@@ -1,7 +1,7 @@
 {
   "name": "any-todo",
   "version": "1.0.0",
-  "description": "`npm install` 进行安装",
+  "description": "`some anytodo",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",
