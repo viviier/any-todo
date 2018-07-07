@@ -26,3 +26,14 @@ export const splitArr = (arr, len) => {
 
 	return res;
 }
+
+// debounce
+export const debounce = (func, wait) => {
+	let timer = null;
+	return function () {
+		if (timer !== null) {
+			clearTimeout(timer);
+		}
+		timer = setTimeout(func, wait);
+	}
+}

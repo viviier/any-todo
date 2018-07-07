@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Icon, Input, List, Avatar, Popover, Pagination, Button, Checkbox, message } from 'antd';
 import { addTodo, toggleTodo, deleteTodos } from 'src/actions/todoActions';
 import { userLoginOut } from 'src/actions/userActions';
-import { splitArr } from 'common/utils';
+import { splitArr, debounce } from 'common/utils';
 import FilterLink from 'common/component/FilterLink';
 import './index.less';
 
@@ -35,8 +35,8 @@ class Home extends Component {
 		})
 	}
 
-	handleClick(e) {
-		let value = e.target.value;
+	handleClick() {
+		let value = this.state.value;
 		if (!value.trim() || !value.replace(' ', '').length) {
 			message.warning('输入不能为空！');
 			return false;
@@ -192,10 +192,10 @@ class Home extends Component {
 					<Input
 						size="large"
 						placeholder="Enter your todo..."
-						suffix={<Icon type="plus" style={{ color: 'rgba(0,0,0,.25)', cursor: 'pointer' }} onClick={e => this.handleClick(e)}/>}
+						suffix={<Icon type="plus" style={{ color: 'rgba(0,0,0,.25)', cursor: 'pointer' }} onClick={() => this.handleClick()}/>}
 						value={this.state.value}
-						onChange={e => this.handleChange(e)}
-						onPressEnter={e => this.handleClick(e)}
+						onChange={e => debounce(this.handleChange(e), 300)}
+						onPressEnter={() => this.handleClick()}
 					/>
 					<List
 						dataSource={dataSource[this.state.current]}
