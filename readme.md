@@ -1,6 +1,6 @@
 ## any-todo
 
-一个在线的todo应用。[> any-todo](http://http://119.27.184.113)
+一个在线的todo应用。[> any-todo](http://119.27.184.113)
 
 `npm install` 进行安装
 
